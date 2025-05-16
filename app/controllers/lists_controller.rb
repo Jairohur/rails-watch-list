@@ -1,7 +1,12 @@
 class ListsController < ApplicationController
-
   def index
-    @lists = List.all # array of instances
+    @lists = List.all
+    @list = List.new
+  end
+
+  def show
+    @list = List.find(params[:id])
+    @bookmark = Bookmark.new
   end
 
   def new
@@ -10,20 +15,17 @@ class ListsController < ApplicationController
 
   def create
     @list = List.new(list_params)
-    if  @list.save
+    if @list.save
       redirect_to list_path(@list)
     else
-      # just show the form again if the validations fail
-      render 'new', status: :unprocessable_entity
+      @lists = List.all
+      render :index, status: :unprocessable_entity
     end
   end
 
-  def show
-    @list = List.find(params[:id])
-  end
+  private
 
   def list_params
     params.require(:list).permit(:name, :photo)
   end
-
 end

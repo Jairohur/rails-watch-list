@@ -1,8 +1,19 @@
+<div class="banner" style=" width: 100%; height: 500px; background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(https://cdn8.openculture.com/wp-content/uploads/2014/08/Cin%C3%A9matographe_Lumi%C3%A8re-1.jpg); background-size: cover; background-position: center;   margin-bottom: 16px">
+  <div class="container">
+    <h1 >Lists</strong>!</h1>
+</div>
+</div>
 <div class="container">
-  <h1>Lists</h1>
+  <div class="cards">
+    <% @lists.each do |list| %>
+      <%= link_to list_path(list) do %>
+        <div class="item card-category" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(<%= list.photo.attached? ? cl_image_path(list.photo.key) : image_path('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPQDYau3Hs4-xw1i8jVSUY4BlF4FLmg8lQqg&usqp=CAU') %>)">
+          <%= list.name %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+  <%= link_to "Create new list", new_list_path %>
+</div>
 
-<% @lists.each do |list| %>
-  <p><%= link_to list.name, list_path(list) %></p>
-<% end %>
-
-<%= link_to "Create new list", new_list_path %>
+height: 449px;
